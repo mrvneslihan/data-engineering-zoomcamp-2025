@@ -1,6 +1,6 @@
 ## **Question 1**
 
-``'bash
+'''bash
 docker run -it --entrypoint=bash python:3.12.8
 root@cf29aaf92196:/# pip --version
 pip 24.3.1 from /usr/local/lib/python3.12/site-packages/pip (python 3.12)
