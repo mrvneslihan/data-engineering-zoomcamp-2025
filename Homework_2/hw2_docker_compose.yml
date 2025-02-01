@@ -8,6 +8,10 @@ volumes:
   pgadmin-data:
     driver: local
 
+networks:
+  kestra-network:
+    driver: bridge
+
 services:
   postgres:
     image: postgres
@@ -48,7 +52,7 @@ services:
           server:
             basicAuth:
               enabled: false
-              username: "admin@kestra.io"
+              username: "admin@kestra.io" # it must be a valid email address
               password: kestra
           repository:
             type: postgres
@@ -84,7 +88,3 @@ services:
       - postgres
     networks:
       - kestra-network
-
-networks:
-  kestra-network:
-    driver: bridge
