@@ -78,3 +78,7 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgres
+  
+    networks:
+  default:
+    driver: bridge
