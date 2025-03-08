@@ -3,6 +3,8 @@ volumes:
     driver: local
   kestra-data:
     driver: local
+  pgadmin-data:
+    driver: local  # pgAdmin verilerinin kalıcı olması için volume ekledik.
 
 services:
   postgres:
@@ -68,10 +70,12 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=root
-      - PGADMIN_CONFIG_WTF_CSRF_ENABLED="False"
+      - PGADMIN_CONFIG_WTF_CSRF_ENABLED="False"  # CSRF koruması kapalı
       - PGADMIN_CONFIG_PROXY_X_HOST_COUNT=1
       - PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT=1
     ports:
-      - "8082:80"
+      - "8082:80"  # Port yönlendirmesini doğru yaparak 8082'yi açtık
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin  # pgAdmin verilerinin kalıcı olması için volume
     depends_on:
       - postgres
