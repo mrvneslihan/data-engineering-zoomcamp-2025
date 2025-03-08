@@ -1,4 +1,4 @@
- **What is the uncompressed file size (i.e. the output file yellow_tripdata_2020-12.csv of the extract task)?**  
+1. **What is the uncompressed file size (i.e. the output file yellow_tripdata_2020-12.csv of the extract task)?**  
    **Answer:** 128.3 MiB  
    The file size can be accessed from the outputFiles section in the outputs when the December 2020 data is executed. The file size is 128.3 MiB.
 
