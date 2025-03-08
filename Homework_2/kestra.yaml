@@ -17,7 +17,7 @@ inputs:
   - id: year
     type: SELECT
     displayName: Select year
-    values: ["2019", "2020"]
+    values: ["2019", "2020","2021"]
     defaults: "2019"
 
   - id: month
@@ -38,30 +38,22 @@ tasks:
     labels:
       file: "{{render(vars.file)}}"
       taxi: "{{inputs.taxi}}"
-
-  - id: extract_yellow
+  
+  - id: extract
     type: io.kestra.plugin.scripts.shell.Commands
     outputFiles:
-      - "*.csv"
+    - "*.csv"
     taskRunner:
-      type: io.kestra.plugin.core.runner.Process
+      type: io.kestra.plugin.core.runner.Process 
     commands:
       - |
         for month in {01..12}; do 
-          wget -qO- https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-${month}.csv.gz | gunzip > yellow_tripdata_2021-${month}.csv
-        done
-
-  - id: extract_green
-    type: io.kestra.plugin.scripts.shell.Commands
-    outputFiles:
-      - "*.csv"
-    taskRunner:
-      type: io.kestra.plugin.core.runner.Process
-    commands:
-      - |
-        for month in {01..12}; do 
-          wget -qO- https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2021-${month}.csv.gz | gunzip > green_tripdata_2021-${month}.csv
-        done
+          if [ "{{inputs.taxi}}" = "yellow" ]; then
+            wget -qO- https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{{inputs.taxi}}/{{render(vars.file)}}.gz | gunzip > {{render(vars.file)}}
+          else
+            wget -qO- https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/{{inputs.taxi}}/{{render(vars.file)}}.gz | gunzip > {{render(vars.file)}}
+          fi
+         done
 
   - id: if_yellow_taxi
     type: io.kestra.plugin.core.flow.If
