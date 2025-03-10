@@ -61,6 +61,7 @@ FROM `taxi-rides-ny-452215.taxi_rides_module3.yellow_tripdata_non_partitioned`
 WHERE fare_amount = 0 ;
 ```
 Result: 8333
+
 ----------------------------------------------------------------------------------------------------
 **Creating a partition and cluster table (Question 5)**
 
