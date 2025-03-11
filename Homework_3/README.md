@@ -23,6 +23,7 @@ SELECT COUNT(*)
 FROM taxi-rides-ny-452215.taxi_rides_module3.external_yellow_tripdata ;
 ```
 Result: 20332093
+
 ----------------------------------------------------------------------------------------------------
 **Counting distinct PULocationID for tables (Question 2)**
 
@@ -34,6 +35,7 @@ SELECT COUNT(DISTINCT PULocationID)
 FROM taxi-rides-ny-452215.taxi_rides_module3.yellow_tripdata_non_partitioned ;
 ```
 Estimated amount of data is 0 MB for the External Table and 155.12 MB for the Materialized Table
+
 ----------------------------------------------------------------------------------------------------
 **Retrieving PULocationID from materialized table (Question 3)**
 
@@ -48,6 +50,7 @@ SELECT PULocationID, DOLocationID
 FROM taxi-rides-ny-452215.taxi_rides_module3.yellow_tripdata_non_partitioned;
 ```
 BigQuery is a columnar database, and it only scans the specific columns requested in the query. Querying two columns (PULocationID, DOLocationID) requires reading more data than querying one column (PULocationID), leading to a higher estimated number of bytes processed.
+
 ----------------------------------------------------------------------------------------------------
 **Counting the number of records where fare_amount is 0 (Question 4)**
 
@@ -58,6 +61,7 @@ FROM `taxi-rides-ny-452215.taxi_rides_module3.yellow_tripdata_non_partitioned`
 WHERE fare_amount = 0 ;
 ```
 Result: 8333
+
 ----------------------------------------------------------------------------------------------------
 **Creating a partition and cluster table (Question 5)**
 
@@ -69,6 +73,7 @@ CLUSTER BY VendorID AS
 SELECT * FROM taxi-rides-ny-452215.taxi_rides_module3.external_yellow_tripdata ;
 ```
 Best strategy to make an optimized table is Partition by tpep_dropoff_datetime and Cluster on VendorID
+
 ----------------------------------------------------------------------------------------------------
 **Retrieving VendorID (Question 6)**
 
@@ -83,4 +88,5 @@ FROM `taxi-rides-ny-452215.taxi_rides_module3.yellow_tripdata_partitioned_cluste
 WHERE tpep_dropoff_datetime BETWEEN '2024-03-01' AND '2024-03-15';
 ```
 Result: 310.24 MB for non-partitioned table and 26.84 MB for the partitioned table
+
 ----------------------------------------------------------------------------------------------------
